@@ -1,13 +1,13 @@
 const url = require('url');
 const Pool = require('pg').Pool;
-const env = require('env2')('./config.env');
+require('env2')('./config.env');
 
-if(!process.env.DB_URL) {
+if (!process.env.DB_URL) {
   throw new Error('Environment variable DB_URL must be set');
 }
 
 const params = url.parse(process.env.DB_URL);
-const [username, password] = params.auth.split(":");
+const [username, password] = params.auth.split(':');
 
 const config = {
   host: params.hostname,
@@ -15,7 +15,7 @@ const config = {
   database: params.pathname.split('/')[1],
   max: process.env.MAX_CONNECTIONS || 2,
   user: username,
-  password: password,
+  password,
   ssl: params.hostname !== 'localhost'
 };
 
