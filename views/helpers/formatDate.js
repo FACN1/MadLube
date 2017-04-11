@@ -1,1 +1,1 @@
-module.exports = date => date.toDateString()
+module.exports = date => date.toDateString();

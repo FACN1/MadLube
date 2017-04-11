@@ -9,7 +9,7 @@ const staticFiles = {
       path: path.join(__dirname, '../public')
     }
   }
-}
+};
 
 const index = {
   method: 'GET',
@@ -17,38 +17,38 @@ const index = {
   handler: (request, reply) => {
     dbQueries.getPosts((err, postsArray) => {
       if (err) {
-        return reply(err)
+        return reply(err);
       }
       const context = {
         posts: postsArray.reverse()
-      }
-      reply.view('index', context);
+      };
+      return reply.view('index', context);
     });
   }
-}
+};
 
 const add = {
   method: 'GET',
   path: '/add',
   handler: (request, reply) => {
-    reply.view('add')
+    reply.view('add');
   }
-}
+};
 
 const createPost = {
   method: 'post',
   path: '/create-post',
   handler: (request, reply) => {
-    var data = request.payload
-    dbQueries.createPost(data, (err, result) =>{
-      if(err) {
+    const data = request.payload;
+    dbQueries.createPost(data, (err) => {
+      if (err) {
         return reply(err);
       }
-      reply('You added a new post');
+      return reply('You added a new post');
     });
   }
-}
+};
 
 module.exports = [
   staticFiles, index, add, createPost
-]
+];
