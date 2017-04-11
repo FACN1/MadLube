@@ -28,9 +28,6 @@ server.register([inert, vision], (err) => {
   });
 
   server.route(routes);
-
-  server.start((error) => {
-    if (error) throw err;
-    console.log('Server running at:', server.info.uri);
-  });
 });
+
+module.exports = server;
