@@ -1,13 +1,12 @@
 const hapi = require('hapi');
 const vision = require('vision');
-const routes = require('./router.js');
+const routes = require('./routes/index.js');
 const inert = require('inert');
 const handlebars = require('handlebars');
 
 const port = process.env.PORT || 4040;
 
 const server = new hapi.Server();
-
 
 server.connection({
   port
