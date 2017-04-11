@@ -1,8 +1,10 @@
-# week7-SPN
-Brace yourselves for Saucy Psychic Ninjas' Dinner Blog(!!!).
+# MadLube
+Mohamed and Lubes' week 8 project, building on the Saucy Psychic Ninjas' week7 project.
 
-## Outline
+## Week 7 outline
 Our site will be a blog about what was cooked for dinner at the guesthouse (or elsewhere). Users can submit new posts about meals, read about specific meals, and ultimately comment on posts and maybe search/filter posts.
+
+## Week 8 outline
 
 ## Aims
 - Heroku
@@ -25,25 +27,6 @@ Our site will be a blog about what was cooked for dinner at the guesthouse (or e
 > So that I can re-read the post with my friends at various points in the future and laugh and be merry
 
 ## Local install instructions
-- In your command line run:
-
-```bash
-git clone https://github.com/FACN1/week7-SPN.git
-
-cd week7-SPN
-
-npm i
-
-atom config.env
-
-```
-
-- SAVE the config.env file
-
-- Ask us for the DB_URL (on gitter)
-
-- Enter DB_URL within config.env in your text editor.
-
 
 ## Database Schema:
 ### Posts
