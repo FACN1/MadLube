@@ -1,4 +1,18 @@
 <nav class="nav-bar">
-  <a href="/">Home</a>
-  <a href="/add">Add a new dinner</a>
+
+  {{#if isAuthenticated}}
+    <img id="navbar-github-avatar" src="{{avatar_url}}"/>
+    <span id="navbar-welcome-message">Hello, {{username}}!<span>
+  {{else}}
+    <a href="/login">Hello, please login.</a>
+  {{/if}}
+
+  {{#if isNotHomePage}}
+    <a href="/">Click to view posts!</a>
+  {{/if}}
+
+  {{#if isNotAddPage}}
+    <a href="/add">Click to add post!</a>
+  {{/if}}
+
 </nav>
