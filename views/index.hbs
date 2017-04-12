@@ -1,9 +1,9 @@
-<ul>
+<ul id="ulPosts">
   {{#each posts}}
   <li id="listPosts" class={{background_color}}>
-    <h4><span>dish: </span>{{dish}}</h4>
-    <h4><span>cooked by: </span>{{chef_name}}</h4>
-    <h4 class="spanDate"><span>date published: </span>{{formatDate date_published}}</h4>
+    <h4><span>dish:</span>{{dish}}</h4>
+    <h4><span>cooked by:</span>{{chef_name}}</h4>
+    <h4 class="date" >{{formatDate date_published}}</h4>
     <p>{{description}}</p>
   </li>
   {{/each}}
