@@ -42,11 +42,11 @@ module.exports = {
         }
         // for now, reply with the user info
         // really we want to store it in our database and issue an authorization cookie
+        const parsedInfoBody = JSON.parse(infoBody);
         const payload = {
-          username: infoBody.login,
-          img_url: infoBody.avatar_url
+          username: parsedInfoBody.login,
+          img_url: parsedInfoBody.avatar_url
         };
-
         const options = {
           expiresIn: Date.now() + (24 * 60 * 60 * 1000),
           subject: 'github-data'
