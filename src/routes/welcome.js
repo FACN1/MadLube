@@ -1,4 +1,5 @@
 const Request = require('request');
+const jwt = require('jsonwebtoken');
 
 module.exports = {
   method: 'GET',
@@ -41,7 +42,25 @@ module.exports = {
         }
         // for now, reply with the user info
         // really we want to store it in our database and issue an authorization cookie
-        return reply(infoBody);
+        const payload = {
+          username: infoBody.login,
+          img_url: infoBody.avatar_url
+        };
+
+        const options = {
+          expiresIn: Date.now() + (24 * 60 * 60 * 1000),
+          subject: 'github-data'
+        };
+
+        return jwt.sign(payload, process.env.JWT_SECRET, options, (error, token) => {
+          if (error) {
+            return reply(error);
+          }
+          return reply.redirect('/').state('token', token, {
+            isHttpOnly: false,
+            isSecure: process.env.NODE_ENV === 'PRODUCTION'
+          });
+        });
       });
     });
   }
