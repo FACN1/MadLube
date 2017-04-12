@@ -1,18 +1,10 @@
-<table>
-  <th>
-    <td>dish</td>
-    <td>description</td>
-    <td>chef name</td>
-    <td>date published</td>
-  </th>
-
+<ul>
   {{#each posts}}
-  <tr class={{background_color}}>
-    <td></td>
-    <td>{{dish}}</td>
-    <td>{{description}}</td>
-    <td>{{chef_name}}</td>
-    <td>{{date_published}}</td>
-  </tr>
+  <li id="listPosts" class={{background_color}}>
+    <h4><span>dish: </span>{{dish}}</h4>
+    <h4><span>cooked by: </span>{{chef_name}}</h4>
+    <h4 class="spanDate"><span>date published: </span>{{formatDate date_published}}</h4>
+    <p>{{description}}</p>
+  </li>
   {{/each}}
-</table>
+</ul>
