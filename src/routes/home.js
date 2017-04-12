@@ -4,7 +4,6 @@ module.exports = {
   method: 'GET',
   path: '/',
   handler: (request, reply) => {
-    // get username and avatar url from cookie
     dbQueries.getPosts((err, postsArray) => {
       if (err) {
         return reply(err);
