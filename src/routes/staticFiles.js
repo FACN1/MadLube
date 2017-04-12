@@ -5,7 +5,7 @@ module.exports = {
   path: '/{file}',
   handler: {
     directory: {
-      path: path.join(__dirname, '../public')
+      path: path.join(__dirname, '../../public')
     }
   }
 };
