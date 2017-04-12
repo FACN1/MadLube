@@ -23,7 +23,7 @@ server.register([inert, vision, jwtAuth], (err) => {
   }
 
   // create a strategy named jwt-strategy
-  server.auth.strategy('jwt-strategy', 'jwt', {
+  server.auth.strategy('jwt-strategy', 'jwt', 'optional', {
     key: process.env.JWT_SECRET,
     validateFunc: jwtValidate,
     verifyOptions: {
