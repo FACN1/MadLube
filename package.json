@@ -8,12 +8,13 @@
   "main": "index.js",
   "dependencies": {
     "env2": "^2.1.1",
-    "pg": "^6.1.5",
     "handlebars": "^4.0.6",
     "hapi": "^16.1.1",
     "inert": "^4.2.0",
-    "vision": "^4.1.1",
-    "tape": "^4.6.3"
+    "pg": "^6.1.5",
+    "request": "^2.81.0",
+    "tape": "^4.6.3",
+    "vision": "^4.1.1"
   },
   "devDependencies": {
     "eslint": "^3.19.0",
@@ -27,7 +28,7 @@
     "prepush": "npm run lint",
     "lint": "./node_modules/.bin/eslint './+(src|test|database|views)/**/*.js'",
     "start": "node src/start.js",
-    "dev": "./node_modules/.bin/nodemon src/server.js",
+    "dev": "./node_modules/nodemon/bin/nodemon.js src/start.js",
     "test": "node src/tests.js | tap-spec"
   },
   "repository": {
