@@ -9,6 +9,10 @@ module.exports = {
         return reply(err);
       }
       const context = {
+        isNotAddPage: true,
+        isAuthenticated: request.auth.isAuthenticated,
+        username: request.auth.credentials ? request.auth.credentials.username : null,
+        avatar_url: request.auth.credentials ? request.auth.credentials.img_url : null,
         posts: postsArray.reverse()
       };
       return reply.view('index', context);

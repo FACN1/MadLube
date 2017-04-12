@@ -7,7 +7,7 @@ tape('check the home route', (t) => {
     method: 'GET'
   };
   server.inject(options, (res) => {
-    const testString = '<title>Saucy Psychic Ninjas Guesthouse Dinners</title>';
+    const testString = '<title>MadLube Blog</title>';
     t.equal(res.statusCode, 200, 'status code should be 200');
     t.ok(res.payload.includes(testString), 'served html should contain the right title');
     t.end();
