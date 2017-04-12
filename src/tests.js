@@ -14,4 +14,17 @@ tape('check the home route', (t) => {
   });
 });
 
+tape('check the css file', (t) => {
+  const options = {
+    url: '/style.css',
+    method: 'GET'
+  };
+
+  server.inject(options, (res) => {
+    t.equal(res.statusCode, 200, 'status code should be 200');
+    t.ok(res.payload.includes('body {'), 'serverd css file should include "body {"');
+    t.end();
+  });
+});
+
 tape.onFinish(() => process.exit(0));
