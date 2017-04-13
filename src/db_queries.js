@@ -5,7 +5,7 @@ const getPosts = (callback) => {
 };
 
 const createPost = (data, callback) => {
-  connPool.query('INSERT INTO posts (dish, user_id, description, chef_name, background_color) VALUES ($1, $2, $3, $4, $5)', [data.dish, 1, data.description, data.chef_name, data.background_color], callback);
+  connPool.query('INSERT INTO posts (dish, user_id, description, chef_name, background_color) VALUES ($1, $2, $3, $4, $5)', [data.dish, data.user_id, data.description, data.chef_name, data.background_color], callback);
 };
 
 const getUserId = (username, callback) => {
