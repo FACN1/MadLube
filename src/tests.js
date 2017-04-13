@@ -27,4 +27,17 @@ tape('check the css file', (t) => {
   });
 });
 
+tape('check the error file on the server', (t) => {
+  const options = {
+    url: '/error',
+    method: 'GET'
+  };
+
+  server.inject(options, (res) => {
+    t.equal(res.statusCode, 200, 'status code should be 200');
+    t.ok(res.payload.includes('<h2 id="errorMessage">Sorry! Something went wrong...</h2>'), 'served error file should include "<h2 id="errorMessage">Sorry! Something went wrong...</h2>"');
+    t.end();
+  });
+});
+
 tape.onFinish(() => process.exit(0));

@@ -4,7 +4,10 @@ module.exports = {
   method: 'post',
   path: '/create-post',
   config: {
-    auth: 'jwt-strategy'
+    auth: {
+      strategy: 'jwt-strategy',
+      mode: 'required'
+    }
   },
   handler: (request, reply) => {
     const data = request.payload;
@@ -18,7 +21,7 @@ module.exports = {
       if (err) {
         return reply(err);
       }
-      return reply('You added a new post');
+      return reply.redirect('/');
     });
   }
 };
