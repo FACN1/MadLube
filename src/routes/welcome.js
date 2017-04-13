@@ -1,6 +1,8 @@
 const Request = require('request');
 const jwt = require('jsonwebtoken');
 
+const dbQueries = require('../db_queries');
+
 module.exports = {
   method: 'GET',
   path: '/welcome',
@@ -43,22 +45,32 @@ module.exports = {
         // for now, reply with the user info
         // really we want to store it in our database and issue an authorization cookie
         const parsedInfoBody = JSON.parse(infoBody);
-        const payload = {
-          username: parsedInfoBody.login,
-          img_url: parsedInfoBody.avatar_url
-        };
-        const options = {
-          expiresIn: Date.now() + (24 * 60 * 60 * 1000),
-          subject: 'github-data'
-        };
+        console.log(`looking for id for ${parsedInfoBody.login} in db...`);
 
-        return jwt.sign(payload, process.env.JWT_SECRET, options, (error, token) => {
-          if (error) {
-            return reply(error);
+        return dbQueries.getOrCreateUserId(parsedInfoBody, (dbError, userId) => {
+          if (dbError) {
+            return reply(dbError);
           }
-          return reply.redirect('/').state('token', token, {
-            isHttpOnly: false,
-            isSecure: process.env.NODE_ENV === 'PRODUCTION'
+
+          console.log(`user id in payload: ${userId}`);
+          const payload = {
+            username: parsedInfoBody.login,
+            img_url: parsedInfoBody.avatar_url,
+            id: userId
+          };
+          const options = {
+            expiresIn: Date.now() + (24 * 60 * 60 * 1000),
+            subject: 'github-data'
+          };
+
+          return jwt.sign(payload, process.env.JWT_SECRET, options, (error, token) => {
+            if (error) {
+              return reply(error);
+            }
+            return reply.redirect('/').state('token', token, {
+              isHttpOnly: false,
+              isSecure: process.env.NODE_ENV === 'PRODUCTION'
+            });
           });
         });
       });

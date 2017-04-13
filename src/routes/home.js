@@ -13,7 +13,7 @@ module.exports = {
         isAuthenticated: request.auth.isAuthenticated,
         username: request.auth.credentials ? request.auth.credentials.username : null,
         avatar_url: request.auth.credentials ? request.auth.credentials.img_url : null,
-        posts: postsArray.reverse()
+        posts: postsArray.rows.reverse()
       };
       return reply.view('index', context);
     });

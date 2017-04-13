@@ -5,7 +5,8 @@ DROP TABLE IF EXISTS users, posts CASCADE;
 CREATE TABLE users (
   id SERIAL PRIMARY KEY,
   username VARCHAR(255) NOT NULL,
-  name VARCHAR(255) NOT NULL
+  name VARCHAR(255),
+  access_token VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE posts (
