@@ -20,11 +20,11 @@ module.exports = {
     Request(accessTokenRequestOptions, (tokenError, tokenReponse, tokenBody) => {
       if (tokenError) {
         // to be changed to a more appropriate response
-        return reply.view('error');
+        return reply.redirect('/error');
       }
       if (!tokenBody.access_token) {
         // to be changed to a more appropriate response
-        return reply.view('error');
+        return reply.redirect('/error');
       }
       const githubAccessToken = tokenBody.access_token;
       const userInfoRequestOptions = {
@@ -38,7 +38,7 @@ module.exports = {
       // return is just to suppress the linter
       return Request.get(userInfoRequestOptions, (infoError, infoResponse, infoBody) => {
         if (infoError) {
-          return reply(infoError);
+          return reply.redirect('/error');
         }
         // for now, reply with the user info
         // really we want to store it in our database and issue an authorization cookie
@@ -54,7 +54,7 @@ module.exports = {
 
         return jwt.sign(payload, process.env.JWT_SECRET, options, (error, token) => {
           if (error) {
-            return reply(error);
+            return reply.redirect('/error');
           }
           return reply.redirect('/').state('token', token, {
             isHttpOnly: false,

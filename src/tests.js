@@ -35,7 +35,7 @@ tape('check the error file on the server', (t) => {
 
   server.inject(options, (res) => {
     t.equal(res.statusCode, 200, 'status code should be 200');
-    t.ok(res.payload.includes('<h2 id="errorMessage"> 500 Internal Server Error </h2>'), 'served error file should include "<h2 id="errorMessage"> 500 Internal Server Error </h2>"');
+    t.ok(res.payload.includes('<h2 id="errorMessage">Sorry! Something went wrong...</h2>'), 'served error file should include "<h2 id="errorMessage">Sorry! Something went wrong...</h2>"');
     t.end();
   });
 });
