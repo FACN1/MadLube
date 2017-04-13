@@ -1,6 +1,8 @@
 const Request = require('request');
 const jwt = require('jsonwebtoken');
 
+const dbQueries = require('../db_queries');
+
 module.exports = {
   method: 'GET',
   path: '/welcome',
@@ -43,9 +45,33 @@ module.exports = {
         // for now, reply with the user info
         // really we want to store it in our database and issue an authorization cookie
         const parsedInfoBody = JSON.parse(infoBody);
+        let userId;
+
+        dbQueries.getUserId(parsedInfoBody.login, (error, res) => {
+          if (error) {
+            return reply(error);
+          }
+          if (res === -1) {
+            // create user in database if doesn't exist already
+            return dbQueries.createUser(parsedInfoBody, (err, result) => {
+              if (err) {
+                return reply(err);
+              }
+              // need to get newUserId somehow
+              userId = newUserId;
+              // #linter
+              return 0;
+            });
+          }
+          userId = res;
+          return 0;
+        });
+
+
         const payload = {
           username: parsedInfoBody.login,
-          img_url: parsedInfoBody.avatar_url
+          img_url: parsedInfoBody.avatar_url,
+          id: userId
         };
         const options = {
           expiresIn: Date.now() + (24 * 60 * 60 * 1000),
