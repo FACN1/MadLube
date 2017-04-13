@@ -4,6 +4,7 @@ const login = require('./login.js');
 const add = require('./add.js');
 const createPost = require('./createPost.js');
 const welcome = require('./welcome.js');
+const error = require('./error.js');
 
 module.exports = [
   staticFiles,
@@ -11,5 +12,6 @@ module.exports = [
   login,
   add,
   createPost,
-  welcome
+  welcome,
+  error
 ];
