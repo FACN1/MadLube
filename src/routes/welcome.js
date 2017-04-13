@@ -20,11 +20,11 @@ module.exports = {
     Request(accessTokenRequestOptions, (tokenError, tokenReponse, tokenBody) => {
       if (tokenError) {
         // to be changed to a more appropriate response
-        return reply(tokenError);
+        return reply.view('error');
       }
       if (!tokenBody.access_token) {
         // to be changed to a more appropriate response
-        return reply(tokenBody);
+        return reply.view('error');
       }
       const githubAccessToken = tokenBody.access_token;
       const userInfoRequestOptions = {
