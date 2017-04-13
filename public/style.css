@@ -64,10 +64,13 @@ header {
 }
 
 #listPosts span {
-  color: white;
-  background-color: rgba(0, 0, 0, 0.5);
-  border-radius: 8px;
-  margin-right: 5px;
+  font-size: 20px;
+  color: 	#A52A2A;
+  margin-right: 15px;
+}
+
+#listPosts p {
+  font-weight: bold;
 }
 
 #listPosts {
@@ -75,6 +78,7 @@ header {
   padding: 10px;
   list-style: none;
 }
+
 .date {
-  color: 	#808000	;
+  color: rgba(0, 0, 0, 0.7);
 }
