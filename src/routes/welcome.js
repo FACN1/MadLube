@@ -45,46 +45,32 @@ module.exports = {
         // for now, reply with the user info
         // really we want to store it in our database and issue an authorization cookie
         const parsedInfoBody = JSON.parse(infoBody);
-        let userId;
+        console.log(`looking for id for ${parsedInfoBody.login} in db...`);
 
-        dbQueries.getUserId(parsedInfoBody.login, (error, res) => {
-          if (error) {
-            return reply(error);
+        return dbQueries.getOrCreateUserId(parsedInfoBody, (dbError, userId) => {
+          if (dbError) {
+            return reply(dbError);
           }
-          if (res === -1) {
-            // create user in database if doesn't exist already
-            return dbQueries.createUser(parsedInfoBody, (err, result) => {
-              if (err) {
-                return reply(err);
-              }
-              // need to get newUserId somehow
-              userId = newUserId;
-              // #linter
-              return 0;
+
+          console.log(`user id in payload: ${userId}`);
+          const payload = {
+            username: parsedInfoBody.login,
+            img_url: parsedInfoBody.avatar_url,
+            id: userId
+          };
+          const options = {
+            expiresIn: Date.now() + (24 * 60 * 60 * 1000),
+            subject: 'github-data'
+          };
+
+          return jwt.sign(payload, process.env.JWT_SECRET, options, (error, token) => {
+            if (error) {
+              return reply(error);
+            }
+            return reply.redirect('/').state('token', token, {
+              isHttpOnly: false,
+              isSecure: process.env.NODE_ENV === 'PRODUCTION'
             });
-          }
-          userId = res;
-          return 0;
-        });
-
-
-        const payload = {
-          username: parsedInfoBody.login,
-          img_url: parsedInfoBody.avatar_url,
-          id: userId
-        };
-        const options = {
-          expiresIn: Date.now() + (24 * 60 * 60 * 1000),
-          subject: 'github-data'
-        };
-
-        return jwt.sign(payload, process.env.JWT_SECRET, options, (error, token) => {
-          if (error) {
-            return reply(error);
-          }
-          return reply.redirect('/').state('token', token, {
-            isHttpOnly: false,
-            isSecure: process.env.NODE_ENV === 'PRODUCTION'
           });
         });
       });
